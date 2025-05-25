@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="256" cy="256" r="256" fill="#1E293B"/>
+  
+  <!-- Letter K - redesigned for better balance -->
+  <path d="M192 128H256L320 256L256 384H192L256 256L192 128Z" fill="#60A5FA"/>
+  <path d="M320 128H384L320 256L384 384H320L256 256L320 128Z" fill="#60A5FA"/>
+</svg> 
