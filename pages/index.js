@@ -1056,6 +1056,55 @@ export default function Home() {
           </div>
         </div>
       </motion.section>
+
+      {/* Contact Section */}
+      <motion.section
+        id="contact"
+        className="py-20 px-4 bg-black text-white"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-4">Let&apos;s Connect</h2>
+          <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
+            Interested in working together? Let&apos;s discuss how I can contribute to your team&apos;s success.
+          </p>
+          <div className="flex justify-center gap-6">
+            <a
+              href="https://linkedin.com/in/krutartha"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-zinc-900 text-white px-8 py-4 rounded-lg font-semibold flex items-center gap-2 hover:bg-zinc-800 transition"
+            >
+              <FaLinkedin /> LinkedIn
+            </a>
+            <a
+              href="https://github.com/krutartha"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-zinc-900 text-white px-8 py-4 rounded-lg font-semibold flex items-center gap-2 hover:bg-zinc-800 transition"
+            >
+              <FaGithub /> GitHub
+            </a>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* Footer */}
+      <motion.footer
+        className="bg-black text-zinc-400 py-12"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+      >
+        <div className="max-w-7xl mx-auto px-4 text-center">
+          <p>© {new Date().getFullYear()} Krutartha. All rights reserved.</p>
+          <p className="mt-2">Built with Next.js, Tailwind CSS, and 🔥</p>
+        </div>
+      </motion.footer>
     </main>
   )
 }
