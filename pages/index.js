@@ -51,7 +51,7 @@ function TiltImage() {
   return (
     <motion.div
       ref={containerRef}
-      className="hidden lg:block lg:w-1/3 perspective-1000"
+      className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl mx-auto perspective-1000"
       initial={{ opacity: 0, scale: 0.8 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1, delay: 0.5 }}
@@ -68,14 +68,13 @@ function TiltImage() {
         
         {/* Image container */}
         <div 
-          className="relative rounded-full overflow-hidden border-4 border-white/10"
-          style={{ transform: 'translateZ(20px)', width: '400px', height: '400px' }}
+          className="relative rounded-full overflow-hidden border-4 border-white/10 mx-auto"
+          style={{ transform: 'translateZ(20px)', width: '100%', maxWidth: '400px', aspectRatio: '1/1' }}
         >
           <Image
             src="/pp.jpg"
             alt="Profile"
-            width={400}
-            height={400}
+            fill
             className="object-cover w-full h-full"
             priority
           />
@@ -548,11 +547,8 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen overflow-hidden bg-black">
-        <motion.div 
-          className="absolute inset-0 overflow-hidden"
-          style={{ y: backgroundY }}
-        >
-          <div className="absolute w-full h-full bg-[radial-gradient(circle_at_50%_120%,rgba(29,78,216,0.1),rgba(0,0,0,0))]"></div>
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-full h-full bg-[radial-gradient(circle_at_50%_120%,rgba(29,78,216,0.1),rgba(0,0,0,0))]" />
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -564,15 +560,15 @@ export default function Home() {
               opacity: 0.05
             }}
           />
-        </motion.div>
+        </div>
 
         {/* Content */}
-        <div className="relative max-w-7xl mx-auto px-4 py-32 sm:px-6 lg:px-8">
+        <div className="relative max-w-7xl mx-auto px-4 pt-20 pb-10 sm:pt-28 sm:pb-16 lg:pt-32 lg:pb-24">
           <motion.div
             style={{ y: heroY, opacity: heroOpacity }}
-            className="relative z-10 text-center lg:text-left lg:flex lg:items-center lg:justify-between"
+            className="relative z-10 flex flex-col-reverse items-center lg:flex-row lg:items-center lg:justify-between gap-10 lg:gap-0"
           >
-            <div className="lg:w-2/3">
+            <div className="w-full lg:w-2/3 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6 mb-8 lg:mb-0">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -682,7 +678,7 @@ export default function Home() {
 
         {/* Navigation Bar */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+          className="hidden md:flex justify-center w-full mb-8"
           initial={{ opacity: 0, y: -20 }}
           animate={{ 
             opacity: isNavVisible ? 1 : 0,
