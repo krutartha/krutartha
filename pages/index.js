@@ -4,6 +4,12 @@ import { motion, useScroll, useTransform, useSpring } from 'framer-motion'
 import { FaGithub, FaLinkedin, FaEnvelope } from 'react-icons/fa'
 import { HiAcademicCap, HiCode, HiBriefcase, HiStar, HiLightBulb } from 'react-icons/hi'
 import { useState, useRef, useEffect } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { EffectCoverflow, Autoplay, EffectCreative } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/effect-coverflow'
+import 'swiper/css/effect-creative'
 
 function TiltImage() {
   const containerRef = useRef(null)
@@ -133,10 +139,10 @@ function TiltProject({ project, index }) {
       initial={{ opacity: 0, scale: 0.9 }}
       whileInView={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.5 }}
-      className="flex-none w-[350px] perspective-1000"
+      className="flex-none w-[180px] min-h-[160px] sm:w-[350px] sm:min-h-[320px] perspective-1000"
     >
       <div 
-        className="relative transition-all duration-300 ease-out bg-black p-8 rounded-lg border border-zinc-800 hover:bg-zinc-950"
+        className="relative transition-all duration-300 ease-out bg-black p-3 sm:p-8 rounded-lg border border-zinc-800 hover:bg-zinc-950"
         style={{
           transform: isHovered ? `rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)` : 'rotateX(0deg) rotateY(0deg)',
           transformStyle: 'preserve-3d'
@@ -147,13 +153,12 @@ function TiltProject({ project, index }) {
           className="absolute inset-0 bg-blue-500/10 rounded-lg blur-xl transform scale-110 transition-opacity duration-300"
           style={{ opacity: isHovered ? 1 : 0 }}
         />
-        
         {/* Content container */}
         <div 
           className="relative transition-transform duration-300"
           style={{ transform: isHovered ? 'translateZ(20px)' : 'translateZ(0px)' }}
         >
-          <div className="relative h-48 mb-6 rounded-lg overflow-hidden">
+          <div className="relative h-20 sm:h-48 mb-3 sm:mb-6 rounded-lg overflow-hidden">
             <Image
               src={project.image}
               alt={project.title}
@@ -162,20 +167,20 @@ function TiltProject({ project, index }) {
             />
           </div>
           <div>
-            <h3 className="text-xl font-bold mb-2 text-white">{project.title}</h3>
-            <p className="text-zinc-400 mb-4 text-sm leading-relaxed">{project.description}</p>
-            <div className="flex flex-wrap gap-2 mb-4">
+            <h3 className="text-base sm:text-xl font-bold mb-1 sm:mb-2 text-white">{project.title}</h3>
+            <p className="text-zinc-400 mb-2 sm:mb-4 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">{project.description}</p>
+            <div className="flex flex-wrap gap-1 sm:gap-2 mb-2 sm:mb-4">
               {project.tech.map(tech => (
-                <span key={tech} className="bg-zinc-900 text-zinc-300 px-3 py-1 rounded-md text-sm font-medium">
+                <span key={tech} className="bg-zinc-900 text-zinc-300 px-2 py-0.5 sm:px-3 sm:py-1 rounded-md text-[10px] sm:text-sm font-medium">
                   {tech}
                 </span>
               ))}
             </div>
             <a
               href={project.link}
-              className="inline-flex items-center text-blue-400 hover:text-blue-300 font-semibold"
+              className="inline-flex items-center text-blue-400 hover:text-blue-300 font-semibold text-xs sm:text-base"
             >
-              View Project <HiLightBulb className="ml-2" />
+              View Project <HiLightBulb className="ml-1 sm:ml-2" />
             </a>
           </div>
         </div>
@@ -269,7 +274,7 @@ const experiences = [
     company: 'PapeX',
     role: 'Software Engineer',
     duration: 'April 2025 - Present',
-    description: 'Enhanced LLM explainability incorporating RAG framework in PyTorch and HuggingFace, improving transparency and trust in predictions. Compared XAI methods like LIME and SHAP for feature relevance analysis. Improved data usability using NumPy, Pandas, and Scikit-learn.',
+    description: 'Architected and developed key features for PapeX\'s digital receipt management platform using React Native (mobile) and Next.js (web), delivering a seamless, unified user experience across devices. Designed and managed scalable MySQL databases to ensure secure and efficient storage and retrieval of transactional and financial data. Collaborated closely with the founding team to define the product roadmap and technical architecture, leading end-to-end implementation of core backend services and user-facing features.',
     tech: ['PyTorch', 'HuggingFace', 'NumPy', 'Pandas', 'Scikit-learn']
   },
   {
@@ -533,6 +538,29 @@ export default function Home() {
     return () => {
       document.head.removeChild(style);
     };
+  }, []);
+
+  // Achievements 3D Carousel
+  const [carouselIndex, setCarouselIndex] = useState(0);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCarouselIndex((prev) => (prev + 1) % achievements.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // State for expanded experience card
+  const [expandedExperience, setExpandedExperience] = useState(null);
+
+  // Responsive state for mobile/desktop
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   return (
@@ -843,45 +871,26 @@ export default function Home() {
                     {/* Content container */}
                     <div className={`relative ${index % 2 === 0 ? 'ml-auto' : 'mr-auto'} w-[calc(50%-2rem)]`}>
                       <motion.div 
-                        className="bg-zinc-950 rounded-lg p-6 border border-zinc-800 hover:bg-zinc-900 transition-all cursor-pointer"
-                        whileHover={{ scale: 1.01 }}
+                        className="bg-zinc-950 rounded-lg p-6 border border-zinc-800 hover:bg-zinc-900 transition-all cursor-pointer relative group shadow-lg"
+                        whileHover={{ scale: 1.03, boxShadow: '0 8px 32px 0 rgba(0,0,0,0.18)' }}
                         onClick={() => {
-                          const element = document.getElementById(`exp-${index}`);
-                          const isExpanded = element.classList.contains('expanded');
-                          
-                          // First, collapse all other expanded cards
-                          const allExpanded = document.querySelectorAll('.expanded');
-                          allExpanded.forEach(el => {
-                            if (el !== element) {
-                              el.classList.remove('expanded');
-                              el.style.maxHeight = '0px';
-                            }
-                          });
-
-                          // Then toggle the clicked card
-                          if (isExpanded) {
-                            element.classList.remove('expanded');
-                            element.style.maxHeight = '0px';
-                          } else {
-                            element.classList.add('expanded');
-                            element.style.maxHeight = '500px';
-                          }
+                          setExpandedExperience(expandedExperience === index ? null : index);
                         }}
                       >
-                        <div className="flex flex-col">
-                          <div className="flex justify-between items-center">
+                        <div className={`flex flex-col relative`}>
+                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 sm:gap-0">
                             <div>
-                              <h3 className="text-xl font-bold text-white">{exp.role}</h3>
-                              <p className="text-blue-400 font-semibold">{exp.company}</p>
+                              <h3 className="text-base sm:text-xl font-bold text-white leading-tight">{exp.role}</h3>
+                              <p className="text-blue-400 font-semibold text-sm sm:text-base">{exp.company}</p>
                             </div>
-                            <p className="text-zinc-400 text-sm">{exp.duration}</p>
+                            <p className="text-zinc-400 text-xs sm:text-sm mt-1 sm:mt-0">{exp.duration}</p>
                           </div>
                           
                           {/* Expandable content */}
                           <div 
                             id={`exp-${index}`}
                             className="overflow-hidden transition-all duration-300 ease-in-out"
-                            style={{ maxHeight: '0px' }}
+                            style={{ maxHeight: expandedExperience === index ? '500px' : '0px' }}
                           >
                             <div className="mt-4 pt-4 border-t border-zinc-800">
                               <p className="text-zinc-300 mb-4">{exp.description}</p>
@@ -893,6 +902,18 @@ export default function Home() {
                                 ))}
                               </div>
                             </div>
+                          </div>
+                          {/* Downward/Upward arrow at the end of the card */}
+                          <div className="flex justify-center mt-4">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              className={`h-6 w-6 text-blue-400 transition-transform duration-300 ${expandedExperience === index ? 'rotate-180' : ''}`}
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              stroke="currentColor"
+                            >
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
                           </div>
                         </div>
                       </motion.div>
@@ -920,32 +941,60 @@ export default function Home() {
             Showcasing some of my best work that demonstrates my technical expertise and problem-solving abilities.
           </p>
           
-          {/* Horizontal Scroll Container */}
-          <div className="relative w-full overflow-hidden">
-            {/* Gradient Overlays for Scroll Indication */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-zinc-950 to-transparent z-20 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-zinc-950 to-transparent z-20 pointer-events-none"></div>
-            
-            {/* Scrollable Content */}
-            <div 
-              ref={projectsScrollRef}
-              className="flex overflow-x-auto pb-8 gap-12 px-8 scrollbar-hide w-full"
-              style={{
-                animation: 'scroll 30s linear infinite',
-                scrollBehavior: 'smooth',
-                width: 'max-content'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.animationPlayState = 'paused';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.animationPlayState = 'running';
-              }}
-            >
-              {[...projects, ...projects].map((project, index) => (
-                <TiltProject key={`${project.title}-${index}`} project={project} index={index} />
-              ))}
-            </div>
+          <div className="relative w-full flex justify-center items-center py-8">
+            {isMobile ? (
+              <div className="relative w-full overflow-hidden">
+                {/* Gradient Overlays for Scroll Indication */}
+                <div className="absolute left-0 top-0 bottom-0 w-16 bg-gradient-to-r from-zinc-950 to-transparent z-20 pointer-events-none"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-16 bg-gradient-to-l from-zinc-950 to-transparent z-20 pointer-events-none"></div>
+                {/* Scrollable Content */}
+                <div
+                  className="flex overflow-x-auto pb-8 gap-6 px-4 scrollbar-hide w-full"
+                  style={{
+                    animation: 'scroll 30s linear infinite',
+                    scrollBehavior: 'smooth',
+                    width: 'max-content',
+                  }}
+                >
+                  {[...projects, ...projects].map((project, index) => (
+                    <div key={project.title + '-' + index} className="w-[180px] min-h-[160px] h-auto flex flex-col bg-black p-4 rounded-lg border border-zinc-800">
+                      <TiltProject project={project} index={index} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : (
+              <Swiper
+                effect="creative"
+                grabCursor={true}
+                centeredSlides={true}
+                loop={true}
+                autoplay={{ delay: 2200, disableOnInteraction: false }}
+                slidesPerView={2}
+                creativeEffect={{
+                  prev: {
+                    shadow: true,
+                    translate: ["-120%", 0, -500],
+                    rotate: [0, 0, -15],
+                  },
+                  next: {
+                    shadow: true,
+                    translate: ["120%", 0, -500],
+                    rotate: [0, 0, 15],
+                  },
+                }}
+                modules={[EffectCreative, Autoplay]}
+                className="w-full sm:w-[900px] min-h-[360px]"
+              >
+                {projects.map((project, index) => (
+                  <SwiperSlide key={project.title} className="flex justify-center items-center">
+                    <div className="sm:w-[350px] sm:min-h-[320px] w-[180px] min-h-[160px] h-auto flex flex-col">
+                      <TiltProject project={project} index={index} />
+                    </div>
+                  </SwiperSlide>
+                ))}
+              </Swiper>
+            )}
           </div>
         </div>
       </motion.section>
@@ -965,159 +1014,48 @@ export default function Home() {
             Milestones and acknowledgments that showcase my commitment to excellence.
           </p>
           
-          {/* Horizontal Scroll Container */}
-          <div className="relative w-full overflow-hidden">
-            {/* Gradient Overlays for Scroll Indication */}
-            <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-zinc-950 to-transparent z-20 pointer-events-none"></div>
-            <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-zinc-950 to-transparent z-20 pointer-events-none"></div>
-            
-            {/* Scrollable Content */}
-            <div 
-              ref={achievementsScrollRef}
-              className="flex overflow-x-auto pb-8 gap-12 px-8 scrollbar-hide w-full"
-              style={{
-                animation: 'scroll 30s linear infinite',
-                scrollBehavior: 'smooth',
-                width: 'max-content'
+          {/* Slideshow Container */}
+          <div className="relative w-full flex justify-center items-center min-h-[340px] py-16">
+            <Swiper
+              effect="coverflow"
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={3}
+              loop={true}
+              autoplay={{ delay: 1800, disableOnInteraction: false }}
+              coverflowEffect={{
+                rotate: 30,
+                stretch: 0,
+                depth: 120,
+                modifier: 1,
+                slideShadows: true,
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.animationPlayState = 'paused';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.animationPlayState = 'running';
-              }}
+              modules={[EffectCoverflow, Autoplay]}
+              className="w-[900px] h-[280px]"
             >
-              {[...achievements, ...achievements].map((achievement, index) => (
-                <motion.div
-                  key={`${achievement.title}-${index}`}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ duration: 0.5 }}
-                  className="flex-none w-[350px] bg-black p-8 rounded-lg border border-zinc-800 hover:bg-zinc-950 transition-all duration-300"
-                >
-                  <div className="flex items-center gap-4 mb-4">
-                    <div className="p-3 bg-zinc-900 rounded-md">
-                      <achievement.icon className="text-2xl text-blue-400" />
+              {achievements.map((achievement, idx) => {
+                const Icon = achievement.icon;
+                return (
+                  <SwiperSlide key={achievement.title} className="flex items-center justify-center">
+                    <div className="w-[350px] h-[240px] bg-black border border-zinc-800 rounded-2xl flex flex-col justify-between gap-4 shadow-lg p-8">
+                      <div className="flex items-center gap-4">
+                        <div className="p-3 bg-zinc-900 rounded-md">
+                          <Icon className="text-2xl text-blue-400" />
+                        </div>
+                        <div>
+                          <h3 className="text-lg font-bold text-white">{achievement.title}</h3>
+                          <p className="text-blue-400 font-medium">{achievement.subtitle}</p>
+                        </div>
+                      </div>
+                      <p className="text-zinc-300 text-base leading-relaxed">{achievement.description}</p>
                     </div>
-                    <div>
-                      <h3 className="text-lg font-bold text-white">{achievement.title}</h3>
-                      <p className="text-blue-400 font-medium">{achievement.subtitle}</p>
-                    </div>
-                  </div>
-                  <p className="text-zinc-300 text-sm leading-relaxed">{achievement.description}</p>
-                </motion.div>
-              ))}
-            </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
           </div>
         </div>
       </motion.section>
-
-      {/* Testimonials Section
-      <motion.section
-        className="py-20 px-4 bg-zinc-950"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4 text-white">What People Say</h2>
-          <p className="text-zinc-400 text-center mb-12 max-w-2xl mx-auto">
-            Feedback from colleagues and clients that reflects my professional impact.
-          </p>
-          <div className="max-w-4xl mx-auto">
-            <div className="relative">
-              {testimonials.map((testimonial, index) => (
-                <motion.div
-                  key={testimonial.name}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: index === activeTestimonial ? 1 : 0 }}
-                  transition={{ duration: 0.5 }}
-                  className={`bg-zinc-950 p-8 rounded-xl shadow-lg ${
-                    index === activeTestimonial ? 'block' : 'hidden'
-                  }`}
-                >
-                  <div className="flex items-center gap-6 mb-8">
-                    <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-blue-900">
-                      <Image
-                        src={testimonial.image}
-                        alt={testimonial.name}
-                        fill
-                        className="object-cover"
-                      />
-                    </div>
-                    <div>
-                      <h3 className="text-xl font-bold text-white">{testimonial.name}</h3>
-                      <p className="text-blue-400">{testimonial.role}</p>
-                    </div>
-                  </div>
-                  <p className="text-zinc-300 text-lg italic leading-relaxed">"{testimonial.content}"</p>
-                </motion.div>
-              ))}
-              <div className="flex justify-center mt-8 gap-3">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => setActiveTestimonial(index)}
-                    className={`w-4 h-4 rounded-full transition-colors ${
-                      index === activeTestimonial ? 'bg-blue-600' : 'bg-zinc-700 hover:bg-zinc-600'
-                    }`}
-                  />
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </motion.section> */}
-
-      {/* Contact Section */}
-      <motion.section
-        id="contact"
-        className="py-20 px-4 bg-black text-white"
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Let&apos;s Connect</h2>
-          <p className="text-xl text-zinc-400 mb-8 max-w-2xl mx-auto">
-            Interested in working together? Let&apos;s discuss how I can contribute to your team&apos;s success.
-          </p>
-          <div className="flex justify-center gap-6">
-            <a
-              href="https://linkedin.com/in/krutartha"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-zinc-900 text-white px-8 py-4 rounded-lg font-semibold flex items-center gap-2 hover:bg-zinc-800 transition"
-            >
-              <FaLinkedin /> LinkedIn
-            </a>
-            <a
-              href="https://github.com/krutartha"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="bg-zinc-900 text-white px-8 py-4 rounded-lg font-semibold flex items-center gap-2 hover:bg-zinc-800 transition"
-            >
-              <FaGithub /> GitHub
-            </a>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Footer */}
-      <motion.footer
-        className="bg-black text-zinc-400 py-12"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-      >
-        <div className="max-w-7xl mx-auto px-4 text-center">
-          <p>© {new Date().getFullYear()} Krutartha. All rights reserved.</p>
-          <p className="mt-2">Built with Next.js, Tailwind CSS, and ❤️</p>
-        </div>
-      </motion.footer>
     </main>
   )
 }
