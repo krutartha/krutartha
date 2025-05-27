@@ -1,40 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# 👋 Hi, I'm Krutartha!  
+**Software Engineer | AI/ML Researcher | Tech-for-Good Enthusiast**
 
-## Getting Started
+Welcome to my GitHub! I recently graduated from Syracuse University with a B.S. in Computer Science. Passionate about crafting scalable software, building intelligent systems, and solving real-world problems through code.  
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🧠 Education  
+**Syracuse University** — *Bachelor of Science in Computer Science*  
+📍 *Syracuse, NY* • 🎓 * Class of 2025 * • GPA: ** 3.8/4.0 **  
+**Relevant Coursework**: Operating Systems, Systems Programming, Multiagent Systems, Evolutionary Machine Learning  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+## 💻 Technical Skills  
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+**Languages**:  
+Python • Java • JavaScript/TypeScript • C/C++ • SQL  
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+**AI/ML Frameworks**:  
+NumPy • Pandas • Scikit-learn • TensorFlow • PyTorch • R • Keras • HuggingFace • LangChain  
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Web & Mobile**:  
+React • Next.js • React Native • Tailwind CSS • Payload CMS • Shadcn UI • Node.js • MongoDB • PostgreSQL  
 
-## Learn More
+**Dev Tools & Other**:  
+Git • Docker • Bash • Jira • Trello • Figma • MochaJS • JUnit • StoryBook • Confluence  
 
-To learn more about Next.js, take a look at the following resources:
+**Certifications**:  
+- AWS Certified Cloud Practitioner  
+- Azure AI Fundamentals *(in progress)*  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🧑‍💼 Experience  
 
-## Deploy on Vercel
+### 📱 Software Engineer — **PapeX** *(Remote)*  
+**Apr 2025 – Present**  
+- Developing core features for a digital receipt platform using **React Native** and **Next.js**  
+- Managing secure **MySQL** databases for transactional data  
+- Leading backend architecture discussions with the founding team  
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🤖 AI/ML Researcher — **Syracuse University**  
+**Jan 2023 – May 2025**  
+- Enhanced LLM explainability using **RAG**, **PyTorch**, and **HuggingFace**  
+- Compared XAI methods like **LIME** and **SHAP** for feature relevance analysis  
+- Boosted NLP performance using **NumPy**, **Pandas**, and **Scikit-learn**  
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### 🧩 Software Solutions Technician — **ITS, Syracuse University**  
+**Dec 2022 – May 2025**  
+- Resolved over 10,000+ client issues using **Jira** in an Agile environment  
+- Conducted client training sessions, improving software usage  
+- Maintained technical documentation in **Confluence**  
+
+### 🎮 Software Engineer — **Ace ‘N Rally** *(Remote)*  
+**Apr 2023 – Sep 2023**  
+- Improved player matching using **Geolocation APIs** while preserving user privacy  
+- Created interactive dashboards with **TypeScript**, **MongoDB**, and **AWS**  
+- Integrated **AI analytics** via **AWS Sagemaker** for enhanced matchmaking  
+
+---
+
+## 🚀 Projects  
+
+### 📓 [OpenNote](https://github.com/krutartha)  
+React Native • Java • JUnit • SpringBoot • Firebase  
+> A cross-platform app for collaborative note sharing, featuring real-time sync and secure auth via Firebase.  
+
+### 📊 EchoScope  
+NumPy • Pandas • Scikit-learn • TensorFlow • Keras  
+> NLP tool analyzing Reddit sentiment trends and echo chambers using **Reddit API** and **TF-IDF**.  
+
+### 🧵 InstaScribe  
+Python • BeautifulSoup • InstaLoader • Groq Cloud API  
+> Automated Instagram post scraping and summarization using GenAI tools.  
+
+### 🌐 TAH  
+Next.js • TypeScript • Tailwind • Payload CMS  
+> A modern full-stack CMS website built with best practices for scalable content management.  
+
+---
+
+## 🌱 Let's Connect!  
+- 📫 Email: [krutartha@example.com](mailto:krutartha@example.com)  
+- 💼 [LinkedIn](https://linkedin.com/in/krutartha)  
+- 💻 [Portfolio](https://krutartha.vercel.app)
+
+---
+
+> “Code with purpose. Build with love.” 🌟  
