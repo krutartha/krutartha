@@ -1,0 +1,32 @@
+const projects = [
+  {
+    title: 'OpenNote',
+    description: 'A cross-platform mobile app for notes sharing, leveraging advanced data storage and management techniques with real-time syncing.',
+    tech: ['React Native', 'Java', 'JUnit', 'Spring Boot', 'Firebase'],
+    link: '/opennote',
+    image: '/projects/opennote.png'
+  },
+  {
+    title: 'EchoScope',
+    description: 'An NLP tool analyzing sentiment trends and potential echo chambers within Reddit communities using advanced ML techniques.',
+    tech: ['NumPy', 'Pandas', 'Scikit-learn', 'TensorFlow', 'Keras'],
+    link: '/echoscope',
+    image: '/projects/echoscope.png'
+  },
+  {
+    title: 'InstaScribe',
+    description: 'A Python-based Instagram scraper utilizing GenAI approaches for automated caption summarization.',
+    tech: ['Python', 'BeautifulSoup', 'Instagram API', 'Groq Cloud API'],
+    link: '/instascribe',
+    image: '/projects/instascribe.png'
+  },
+  {
+    title: 'The American Hindu',
+    description: 'A full-stack website built with modern web development practices, featuring dynamic content management.',
+    tech: ['Next.js', 'TypeScript', 'Tailwind', 'Payload CMS'],
+    link: '/tah',
+    image: '/projects/tah.png'
+  }
+]
+
+export default projects; 
